@@ -16,7 +16,11 @@ struct GitHubRepo: Codable, Identifiable {
     let language: Language
 
     enum CodingKeys: String, CodingKey {
-        case id, name, fullName, stargazersCount, language
+        case id
+        case name
+        case fullName
+        case stargazersCount
+        case language
     }
 
     init(from decoder: Decoder) throws {
@@ -53,7 +57,7 @@ enum Language: String, Codable {
 
     var color: Color {
         switch self {
-        case .C: return Color(.cLang)
+        case .C: return Color(.c)
         case .Cpp: return Color(.cpp)
         case .CSS: return Color(.css)
         case .Dart: return Color(.dart)

@@ -8,27 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    private var viewModel = ContentViewModel()
+    @State private var selectedTab = 0
 
     var body: some View {
-        NavigationStack {
-            List {
-                Section {
-                    ProfileHeaderView(user: viewModel.user)
+        TabView(selection: $selectedTab) {
+            SearchView()
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
                 }
-                .listRowInsets(EdgeInsets())
-                .listRowBackground(Color.clear)
-                .padding(.top)
-
-                NavigationLink("Repositories") {
-                    RepoListView(repos: viewModel.repos)
+                .tag(0)
+            ProfileView()
+                .tabItem {
+                    Label("Profile", systemImage: "person\(selectedTab == 1 ? ".fill" : "")")
+                        .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
                 }
-            }
-            .navigationTitle("Profile")
-        }
-        .task {
-            await viewModel.fetchUserData(username: "byytelope")
-            await viewModel.fetchReposData(username: "byytelope")
+                .tag(1)
         }
     }
 }

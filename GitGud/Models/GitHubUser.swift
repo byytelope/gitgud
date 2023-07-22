@@ -12,6 +12,9 @@ struct GitHubUser: Codable {
     let login: String
     let avatarUrl: String
     let bio: String?
-    let blog: String
+    let blog: String?
     let location: String
+    let twitterUsername: String?
+    let followers: Int
+    let following: Int
 }
