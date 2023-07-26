@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var showSheet = false
+
     var body: some View {
         NavigationStack {
             List {
@@ -23,6 +25,9 @@ struct ProfileView: View {
                 }
             }
             .navigationTitle("Profile")
+        }
+        .sheet(isPresented: $showSheet) {
+            Text("Hi")
         }
     }
 }
