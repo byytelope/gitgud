@@ -6,3 +6,15 @@
 //
 
 import Foundation
+import Observation
+
+@Observable
+final class UserData {
+    let id: Int
+    let username: String
+
+    init(id: Int, username: String) {
+        self.id = id
+        self.username = username
+    }
+}

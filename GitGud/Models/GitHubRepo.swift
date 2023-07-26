@@ -8,14 +8,15 @@
 import Foundation
 import SwiftUI
 
-struct GitHubRepo: Codable, Identifiable {
+@Observable
+final class GitHubRepo: Codable, Identifiable {
     let id: Int
     let name: String
     let fullName: String
     let stargazersCount: Int
     let language: Language
 
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id
         case name
         case fullName
@@ -23,17 +24,25 @@ struct GitHubRepo: Codable, Identifiable {
         case language
     }
 
+    init(id: Int, name: String, fullName: String, stargazersCount: Int, language: Language) {
+        self.id = id
+        self.name = name
+        self.fullName = fullName
+        self.stargazersCount = stargazersCount
+        self.language = language
+    }
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(Int.self, forKey: .id)
-        name = try container.decode(String.self, forKey: .name)
-        fullName = try container.decode(String.self, forKey: .fullName)
-        stargazersCount = try container.decode(Int.self, forKey: .stargazersCount)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.fullName = try container.decode(String.self, forKey: .fullName)
+        self.stargazersCount = try container.decode(Int.self, forKey: .stargazersCount)
 
         if let languageString = try container.decodeIfPresent(String.self, forKey: .language) {
-            language = Language(rawValue: languageString) ?? .Other
+            self.language = Language(rawValue: languageString) ?? .Other
         } else {
-            language = .Other
+            self.language = .Other
         }
     }
 }

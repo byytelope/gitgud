@@ -1,5 +1,5 @@
 //
-//  RepoListHeaderView.swift
+//  ProfileHeaderView.swift
 //  GitGud
 //
 //  Created by Mohamed Shadhaan on 20/07/2023.
@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
-    @State private var viewModel = ProfileHeaderViewModel()
+    var user: GitHubUser
 
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             HStack(spacing: 20) {
-                AsyncImage(url: URL(string: viewModel.user?.avatarUrl ?? "")) { image in
+                AsyncImage(url: URL(string: user.avatarUrl)) { image in
                     image
                         .resizable()
                         .frame(width: 60, height: 60)
-                        .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                        .clipShape(Circle())
                 } placeholder: {
                     Circle()
                         .frame(width: 60, height: 60)
@@ -25,40 +25,46 @@ struct ProfileHeaderView: View {
                 }
 
                 VStack(alignment: .leading) {
-                    Text(viewModel.user?.name ?? "Full Name")
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                    if let name = user.name {
+                        Text(name)
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                    }
 
-                    Text(viewModel.user?.login ?? "username")
+                    Text(user.login)
                 }
 
                 Spacer()
             }
 
-            Text(viewModel.user?.bio ?? "This is a bio placeholder")
+            if let bio = user.bio {
+                Text(bio)
+            }
 
             VStack(alignment: .leading, spacing: 14) {
-                HStack {
-                    Image(systemName: "mappin")
+                if let location = user.location {
+                    HStack {
+                        Image(systemName: "mappin")
 
-                    Text(viewModel.user?.location ?? "City, Country")
+                        Text(location)
+                    }
                 }
 
-                if viewModel.user?.blog != nil {
+                if !user.blog.isEmpty {
                     HStack {
                         Image(systemName: "link")
 
-                        Text(.init("[\(viewModel.user?.blog ?? "website.com")](https://\(viewModel.user?.blog ?? "website.com"))"))
+                        Text(.init("[\(user.blog)](https://\(user.blog))"))
                             .bold()
                             .tint(.primary)
                     }
                 }
 
-                if viewModel.user?.twitterUsername != nil {
+                if let twtUsername = user.twitterUsername {
                     HStack {
                         Image("twitterSymbol")
 
-                        Text(.init("[\(viewModel.user?.twitterUsername ?? "twitter")](https://twitter.com/\(viewModel.user?.twitterUsername ?? ""))"))
+                        Text(.init("[\(twtUsername)](https://twitter.com/\(twtUsername))"))
                             .bold()
                             .tint(.primary)
                     }
@@ -67,18 +73,20 @@ struct ProfileHeaderView: View {
                 HStack {
                     Image(systemName: "person")
 
-                    Text("**\(viewModel.user?.followers ?? 0)** followers")
+                    Text("**\(user.followers)** followers")
 
                     Text("·")
 
-                    Text("**\(viewModel.user?.following ?? 0)** following")
+                    Text("**\(user.following)** following")
                 }
             }
             .foregroundStyle(.secondary)
         }
-        .redacted(reason: viewModel.user == nil ? .placeholder : [])
-        .task {
-            await viewModel.fetchData(username: "byytelope")
-        }
     }
+}
+
+#Preview {
+    ProfileHeaderView(
+        user: .mockUser
+    )
 }

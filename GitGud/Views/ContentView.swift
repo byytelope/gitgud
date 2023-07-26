@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selectedTab = 0
+    @State private var username = "byytelope"
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -17,7 +18,7 @@ struct ContentView: View {
                     Label("Search", systemImage: "magnifyingglass")
                 }
                 .tag(0)
-            ProfileView()
+            ProfileView(username: username)
                 .tabItem {
                     Label("Profile", systemImage: "person\(selectedTab == 1 ? ".fill" : "")")
                         .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GHError: Error {
+enum GitHubError: Error {
     case invalidUrl
     case invalidResponse
     case invalidData

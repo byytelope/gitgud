@@ -8,30 +8,36 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var showSheet = false
+    var username: String
+    @State private var viewModel = ProfileViewModel()
 
     var body: some View {
         NavigationStack {
-            List {
-                Section {
-                    ProfileHeaderView()
-                }
-                .listRowInsets(EdgeInsets())
-                .listRowBackground(Color.clear)
-                .padding(.top)
+            if let user = viewModel.user {
+                List {
+                    Section {
+                        ProfileHeaderView(user: user)
+                    }
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+                    .padding(.top)
 
-                NavigationLink("Repositories") {
-                    RepoListView()
+                    NavigationLink("Repositories") {
+                        RepoListView(repos: user.repos)
+                    }
                 }
+                .navigationTitle("Profile")
+            } else {
+                ProgressView()
+                    .navigationTitle("Profile")
             }
-            .navigationTitle("Profile")
         }
-        .sheet(isPresented: $showSheet) {
-            Text("Hi")
+        .task {
+            await viewModel.fetchData(username: username)
         }
     }
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(username: "user123")
 }
