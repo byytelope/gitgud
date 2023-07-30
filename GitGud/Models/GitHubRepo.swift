@@ -47,6 +47,16 @@ final class GitHubRepo: Codable, Identifiable {
     }
 }
 
+extension GitHubRepo: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    static func == (lhs: GitHubRepo, rhs: GitHubRepo) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 enum Language: String, Codable {
     case C
     case Cpp = "C++"

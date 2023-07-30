@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
-    var username: String
     @State private var viewModel = ProfileViewModel()
-
+    var username: String
     var body: some View {
         NavigationStack {
             if let user = viewModel.user {
@@ -22,11 +21,20 @@ struct ProfileView: View {
                     .listRowBackground(Color.clear)
                     .padding(.top)
 
-                    NavigationLink("Repositories") {
-                        RepoListView(repos: user.repos)
+                    NavigationLink(value: user.repos) {
+                        Text("Repositories")
                     }
                 }
                 .navigationTitle("Profile")
+                .navigationDestination(for: [GitHubRepo].self) { repos in
+                    RepoListView(repos: repos)
+                }
+                .navigationDestination(for: GitHubRepo.self) { repo in
+                    RepoView(repo: repo)
+                }
+                .refreshable {
+                    await viewModel.fetchData(username: username)
+                }
             } else {
                 ProgressView()
                     .navigationTitle("Profile")
@@ -39,5 +47,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView(username: "user123")
+    ProfileView(username: "byytelope")
 }

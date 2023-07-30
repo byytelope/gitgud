@@ -15,8 +15,12 @@ struct RepoListView: View {
         if searchText.isEmpty {
             return repos
         } else {
-            return repos.filter { $0.fullName.contains(searchText) }
+            return repos.filter { $0.fullName.localizedCaseInsensitiveContains(searchText) || $0.language.rawValue.localizedCaseInsensitiveContains(searchText) }
         }
+    }
+
+    func pp() {
+        print("Lol")
     }
 
     var body: some View {
@@ -27,15 +31,16 @@ struct RepoListView: View {
                 Text("This user currently has no repos on GitHub.")
             }
             .navigationTitle("Repositories")
+            .navigationBarTitleDisplayMode(.inline)
         } else {
-            List {
-                ForEach(repoResults) { repo in
+            List(repoResults) { repo in
+                NavigationLink(value: repo) {
                     VStack(alignment: .leading, spacing: 12) {
                         Text(repo.name)
                             .bold()
                         HStack(spacing: 12) {
                             HStack {
-                                Image(systemName: "star.fill")
+                                Image(systemName: "star")
                                     .symbolRenderingMode(.hierarchical)
                                     .foregroundStyle(.yellow)
 
@@ -56,12 +61,36 @@ struct RepoListView: View {
                 }
             }
             .navigationTitle("Repositories")
-            .searchable(text: $searchText)
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Find a repository")
             .textInputAutocapitalization(.never)
+            .overlay {
+                if repoResults.isEmpty {
+                    ContentUnavailableView.search
+                }
+            }
+            .toolbar {
+                ToolbarItem {
+                    Menu {
+                        Button("Hi") {
+                            pp()
+                        }
+
+                        Button("Hi") {
+                            pp()
+                        }
+
+                        Button("Hi") {
+                            pp()
+                        }
+                    } label: {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                    }
+                }
+            }
         }
     }
 }
 
 #Preview {
-    RepoListView(repos: [])
+    NavigationStack { RepoListView(repos: GitHubUser.mockUser.repos) }
 }

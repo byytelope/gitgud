@@ -51,5 +51,19 @@ final class GitHubUser: Codable, Identifiable {
         repos = []
     }
 
-    static let mockUser = GitHubUser(id: 1, name: "Full Name", login: "username", avatarUrl: "https://avatars.githubusercontent.com/u/543186?v=4", bio: "This is a bio", blog: "website.co", location: "City, Country", twitterUsername: "twtusr", followers: 12, following: 20, repos: [GitHubRepo(id: 1, name: "repo_1", fullName: "username/repo_1", stargazersCount: 20, language: .Rust), GitHubRepo(id: 2, name: "repo_2", fullName: "username/repo_2", stargazersCount: 0, language: .Cpp)])
+    static let mockUser = GitHubUser(id: 1, name: "Full Name", login: "username", avatarUrl: "https://avatars.githubusercontent.com/u/543186?v=4", bio: "This is a bio", blog: "website.co", location: "City, Country", twitterUsername: "twtusr", followers: 12, following: 20,
+                                     repos: [
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_1", fullName: "username/repo_1", stargazersCount: 20, language: .Rust),
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_2", fullName: "username/repo_2", stargazersCount: 0, language: .Cpp),
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_3", fullName: "username/repo_3", stargazersCount: 10000, language: .Python),
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_1", fullName: "username/repo_1", stargazersCount: 20, language: .Rust),
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_2", fullName: "username/repo_2", stargazersCount: 0, language: .Cpp),
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_3", fullName: "username/repo_3", stargazersCount: 10000, language: .Python),
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_1", fullName: "username/repo_1", stargazersCount: 20, language: .Rust),
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_2", fullName: "username/repo_2", stargazersCount: 0, language: .Cpp),
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_3", fullName: "username/repo_3", stargazersCount: 10000, language: .Python),
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_1", fullName: "username/repo_1", stargazersCount: 20, language: .Rust),
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_2", fullName: "username/repo_2", stargazersCount: 0, language: .Cpp),
+                                         GitHubRepo(id: UUID().hashValue, name: "repo_3", fullName: "username/repo_3", stargazersCount: 10000, language: .Python),
+                                     ])
 }
