@@ -6,10 +6,8 @@
 //
 
 import Foundation
-import Observation
 
-@Observable
-final class GitHubUser: Codable, Identifiable {
+struct GitHubUser: Codable, Identifiable {
     let id: Int
     let name: String?
     let login: String

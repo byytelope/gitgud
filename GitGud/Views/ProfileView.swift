@@ -9,43 +9,61 @@ import SwiftUI
 
 struct ProfileView: View {
     @State private var viewModel = ProfileViewModel()
-    var username: String
-    var body: some View {
-        NavigationStack {
-            if let user = viewModel.user {
-                List {
-                    Section {
-                        ProfileHeaderView(user: user)
-                    }
-                    .listRowInsets(EdgeInsets())
-                    .listRowBackground(Color.clear)
-                    .padding(.top)
+    @Binding var navPath: NavigationPath
+    @Binding var username: String
 
-                    NavigationLink(value: user.repos) {
-                        Text("Repositories")
+    var body: some View {
+        NavigationStack(path: $navPath) {
+            if !username.isEmpty {
+                if let user = viewModel.user, !viewModel.loading {
+                    List {
+                        Section {
+                            ProfileHeaderView(user: user)
+                        }
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color.clear)
+                        .padding(.top)
+
+                        NavigationLink(value: user.repos) {
+                            HStack {
+                                Image(systemName: "book.closed")
+
+                                Text("Repositories")
+
+                                Spacer()
+
+                                Text("\(user.repos.count)")
+                                    .foregroundColor(.secondary)
+                            }
+                        }
                     }
-                }
-                .navigationTitle("Profile")
-                .navigationDestination(for: [GitHubRepo].self) { repos in
-                    RepoListView(repos: repos)
-                }
-                .navigationDestination(for: GitHubRepo.self) { repo in
-                    RepoView(repo: repo)
-                }
-                .refreshable {
-                    await viewModel.fetchData(username: username)
+                    .navigationTitle("Profile")
+                    .navigationDestination(for: [GitHubRepo].self) { repos in
+                        RepoListView(repos: repos)
+                    }
+                    .navigationDestination(for: GitHubRepo.self) { repo in
+                        RepoView(repo: repo)
+                    }
+                    .refreshable {
+                        await viewModel.fetchData(username: username)
+                    }
+                } else {
+                    ProgressView()
+                        .navigationTitle("Profile")
                 }
             } else {
-                ProgressView()
+                ContentUnavailableView("No User Selected", systemImage: "person.slash", description: Text("Select a user from the search tab"))
                     .navigationTitle("Profile")
             }
         }
         .task {
-            await viewModel.fetchData(username: username)
+            if !username.isEmpty {
+                await viewModel.fetchData(username: username)
+            }
         }
     }
 }
 
 #Preview {
-    ProfileView(username: "byytelope")
+    ProfileView(navPath: .constant(NavigationPath()), username: .constant(""))
 }

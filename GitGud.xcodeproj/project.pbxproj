@@ -21,6 +21,8 @@
 		828D9E4D2A6BE24000E75704 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828D9E4C2A6BE24000E75704 /* SearchView.swift */; };
 		82AD15382A69357B00A37DD8 /* RepoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD15372A69357B00A37DD8 /* RepoListView.swift */; };
 		82AD153A2A69369600A37DD8 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD15392A69369600A37DD8 /* ProfileHeaderView.swift */; };
+		82C372632A7D1E35001455B0 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C372622A7D1E35001455B0 /* SearchViewModel.swift */; };
+		82C372652A7D1E7B001455B0 /* BasicUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C372642A7D1E7B001455B0 /* BasicUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		828D9E4C2A6BE24000E75704 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		82AD15372A69357B00A37DD8 /* RepoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListView.swift; sourceTree = "<group>"; };
 		82AD15392A69369600A37DD8 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		82C372622A7D1E35001455B0 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		82C372642A7D1E7B001455B0 /* BasicUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,7 @@
 				825E6CB92A7192B900B8B0E6 /* ProfileViewModel.swift */,
 				828D9E4C2A6BE24000E75704 /* SearchView.swift */,
 				82465C882A76DAF5007210A1 /* RepoView.swift */,
+				82C372622A7D1E35001455B0 /* SearchViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -111,6 +116,7 @@
 				823E223D2A68E48D00CC8280 /* GitHubError.swift */,
 				823E223F2A68E4AF00CC8280 /* GitHubRepo.swift */,
 				822C9B202A71B9A700458F51 /* UserData.swift */,
+				82C372642A7D1E7B001455B0 /* BasicUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -131,6 +137,8 @@
 			dependencies = (
 			);
 			name = GitGud;
+			packageProductDependencies = (
+			);
 			productName = GitGud;
 			productReference = 8273715B2A66464600D522E4 /* GitGud.app */;
 			productType = "com.apple.product-type.application";
@@ -159,6 +167,8 @@
 				Base,
 			);
 			mainGroup = 827371522A66464600D522E4;
+			packageReferences = (
+			);
 			productRefGroup = 8273715C2A66464600D522E4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -190,10 +200,12 @@
 				82AD15382A69357B00A37DD8 /* RepoListView.swift in Sources */,
 				823E223E2A68E48D00CC8280 /* GitHubError.swift in Sources */,
 				827371702A6646C500D522E4 /* GitHubUser.swift in Sources */,
+				82C372632A7D1E35001455B0 /* SearchViewModel.swift in Sources */,
 				822C9B212A71B9A700458F51 /* UserData.swift in Sources */,
 				825E6CBA2A7192B900B8B0E6 /* ProfileViewModel.swift in Sources */,
 				827371612A66464600D522E4 /* ContentView.swift in Sources */,
 				823E22402A68E4AF00CC8280 /* GitHubRepo.swift in Sources */,
+				82C372652A7D1E7B001455B0 /* BasicUser.swift in Sources */,
 				8273715F2A66464600D522E4 /* GitGudApp.swift in Sources */,
 				82465C892A76DAF5007210A1 /* RepoView.swift in Sources */,
 				828D9E4D2A6BE24000E75704 /* SearchView.swift in Sources */,

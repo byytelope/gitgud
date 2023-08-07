@@ -28,7 +28,7 @@ struct RepoListView: View {
             ContentUnavailableView {
                 Label("No Repos Found", systemImage: "slash.circle")
             } description: {
-                Text("This user currently has no repos on GitHub.")
+                Text("This user currently has no repos on GitHub")
             }
             .navigationTitle("Repositories")
             .navigationBarTitleDisplayMode(.inline)

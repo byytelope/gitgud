@@ -10,6 +10,7 @@ import Observation
 
 @Observable final class ProfileViewModel {
     var user: GitHubUser?
+    var loading = true
 
     func fetchData(username: String) async {
         do {
@@ -25,6 +26,8 @@ import Observation
         } catch let e {
             handleErrors(e, prefix: "REPOS")
         }
+
+        loading = false
     }
 
     func handleErrors(_ error: Error, prefix: String) {

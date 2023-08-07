@@ -8,8 +8,7 @@
 import Foundation
 import SwiftUI
 
-@Observable
-final class GitHubRepo: Codable, Identifiable {
+struct GitHubRepo: Codable, Identifiable {
     let id: Int
     let name: String
     let fullName: String
